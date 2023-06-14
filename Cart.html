@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        .item1 {grid-area: header;}
+        .item2 {grid-area: menu;}
+        .item3 {grid-area: right;}
+        .item4 {grid-area: footer;}
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                'header header'
+                'menu right'
+                'footer footer';
+            grid-template-rows: auto;
+            grid-template-columns: 65% 34%;
+            gap: 10px;
+            margin: 0px 5px;
+        }
+        .grid-container>div {
+            background-color: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 5px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5%;
+            background-color: rgb(9, 9, 23);
+        }
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 1%;
+        }
+        .logo label {
+            margin-left: 10px;
+            font-size: 30px;
+            margin-bottom: 5px;
+            font-weight: bolder;
+            color: white;
+        }
+
+
+        
+
+
+        table {
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 90%;
+            margin: 5%;
+        }
+        th {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.079);
+        }
+        tr, td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 5px; 
+            max-width: 100px;
+        }
+        tr button {
+            border-radius: 50%;
+            color: rgba(143, 140, 140, 0.612);
+            font-weight: bold;
+        }
+
+
+        #clearCartButton {
+            width: 80%;
+            height: 40px;
+            color: white;
+            background-color: rgb(81, 197, 236);
+            border: none;
+            margin-top: 40px;
+        }
+        
+
+        .ftr{
+            margin: 0% 5%;
+        }
+        .ftrInf {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: grey;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="item1">
+            <div class="nav">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="logo" /><label>Logoipsum</label>
+                </div>
+            </div>
+        </div>
+        <div class="item2">
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3">Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="item3">
+            <div class="priceInf">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th colspan="2">Cart totals</th>
+                        </tr>
+                        <tr>
+                            <td >Subtotal</td>
+                            <td id="subtotalCell"></td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td id="totalCell"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button id="clearCartButton">PROCEED TO CHECKOUT</button>
+            </div>
+        </div>
+        <div class="item4">
+            <div class="ftr">
+                <hr/>
+                <div class="ftrInf">
+                    <p>Copyright &copy; 2023</p>
+                    <img src="/img/logo.png" width="2%" height="2%">
+                    <p>Privacy policy . Terms & Condition</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+function displayCartData() {
+  var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  var tableBody = document.querySelector("tbody");
+
+  // Clear existing table rows
+  tableBody.innerHTML = "";
+
+  for (var j = 0; j < cartItems.length; j++) {
+    var row = document.createElement("tr");
+
+    // Delete button
+    var deleteCell = document.createElement("td");
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "X";
+    deleteButton.addEventListener("click", deleteCartItem.bind(null, j));
+    deleteCell.appendChild(deleteButton);
+    row.appendChild(deleteCell);
+
+    // Image
+    var imageCell = document.createElement("td");
+    var imageElement = document.createElement("img");
+    imageElement.setAttribute("src", cartItems[j].image);
+    imageElement.setAttribute("alt", "Product Image");
+    imageElement.setAttribute("width", "100");
+    imageCell.appendChild(imageElement);
+    row.appendChild(imageCell);
+
+    // Name
+    var nameCell = document.createElement("td");
+    nameCell.textContent = cartItems[j].name;
+    row.appendChild(nameCell);
+
+    // Price
+    var priceCell = document.createElement("td");
+    priceCell.textContent = cartItems[j].price + " " + cartItems[j].currency;
+    row.appendChild(priceCell);
+
+    // Quantity
+    var quantityCell = document.createElement("td");
+
+    // Decrement button
+    var decrementButton = document.createElement("button");
+    decrementButton.textContent = "-";
+    decrementButton.addEventListener("click", decrementQuantity.bind(null, j));
+    quantityCell.appendChild(decrementButton);
+
+    // Quantity value
+    var quantityValue = document.createElement("span");
+    quantityValue.textContent = cartItems[j].quantity;
+    quantityCell.appendChild(quantityValue);
+
+    // Increment button
+    var incrementButton = document.createElement("button");
+    incrementButton.textContent = "+";
+    incrementButton.addEventListener("click", incrementQuantity.bind(null, j));
+    quantityCell.appendChild(incrementButton);
+
+    row.appendChild(quantityCell);
+
+    // Total
+    var totalCell = document.createElement("td");
+    var totalValue = cartItems[j].price * cartItems[j].quantity;
+    totalCell.textContent = totalValue + " " + "₹";
+    row.appendChild(totalCell);
+    tableBody.appendChild(row);
+  }
+}
+
+// Function to increment the quantity
+function incrementQuantity(index) {
+  var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  cartItems[index].quantity++;
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  location.reload(); // Reload the page
+}
+
+// Function to decrement the quantity
+function decrementQuantity(index) {
+  var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  if (cartItems[index].quantity > 1) {
+    cartItems[index].quantity--;
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  } else {
+    cartItems.splice(index, 1); // Remove item if quantity is 1
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }
+  location.reload(); // Reload the page
+}
+
+
+// Function to delete a cart item
+function deleteCartItem(index) {
+  var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  cartItems.splice(index, 1);
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  displayCartData();
+}
+
+// Call the displayCartData function initially to show existing cart data
+displayCartData();
+
+
+</script>
+
+<script>
+  // Function to calculate the subtotal and total sum
+function calculateTotalSum() {
+  var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  var subtotalSum = 0;
+  var totalSum = 0;
+
+  for (var j = 0; j < cartItems.length; j++) {
+    if (cartItems[j].currency === "₹") {
+      var totalValue = cartItems[j].price * cartItems[j].quantity;
+    } else {
+      totalValue = cartItems[j].price * cartItems[j].quantity * 80;
+    }
+    subtotalSum += totalValue;
+    totalSum += totalValue;
+  }
+
+  return {
+    subtotal: subtotalSum,
+    total: totalSum
+  };
+}
+
+// Function to display the total sum in the separate table
+function displayTotalSum() {
+  var totalData = calculateTotalSum();
+  var subtotalCell = document.getElementById("subtotalCell");
+  var totalCell = document.getElementById("totalCell");
+
+  if (subtotalCell) {
+    subtotalCell.textContent = totalData.subtotal + " " + "₹";
+  }
+  if (totalCell) {
+    totalCell.textContent = totalData.total + " " + "₹";
+  }
+}
+
+// Call the displayCartData function initially to show existing cart data
+displayCartData();
+
+// Call the displayTotalSum function to show the total sum in the separate table
+displayTotalSum();
+
+
+</script>
+<script>
+
+
+function clearCart() {
+  // Clear the cart items in localStorage
+  localStorage.removeItem("cartItems");
+
+  // Reset the quantity in formData array
+  var formData = JSON.parse(localStorage.getItem("formData"));
+  for (var i = 0; i < formData.length; i++) {
+    formData[i].quantity = cartItems[j].quantity;
+  }
+  localStorage.setItem("formData", JSON.stringify(formData));
+
+  // Refresh the display
+  displayCartData();
+  displayTotalSum();
+}
+
+// Add event listener to the clear cart button
+var clearCartButton = document.getElementById("clearCartButton");
+clearCartButton.addEventListener("click", clearCart);
+
+
+
+    // Function to clear the cart
+// function clearCart() {
+//   localStorage.removeItem("cartItems");
+//   displayCartData();
+//   displayTotalSum();
+// }
+
+// // Add event listener to the clear cart button
+// var clearCartButton = document.getElementById("clearCartButton");
+// clearCartButton.addEventListener("click", clearCart);
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+// increment decrement button
+var quantityCell = document.createElement("td");
+var quantitySelect = document.createElement("div");
+var quantityDec = document.createElement("button");
+var quantityInc = document.createElement("button"); -->
+
+
+
+<!-- .quantity-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .decrementBtn,
+  .incrementBtn {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  .countInput {
+    width: 40px;
+    text-align: center;
+  } -->
+  
+<!-- 
+  const addButton = document.createElement("button");
+  addButton.type = "button";
+  addButton.className = "btn bg-success text-white";
+  addButton.textContent = "+";
+  
+  const inputField = document.createElement("input");
+  inputField.type = "text";
+  inputField.name = "number";
+  
+  const subtractButton = document.createElement("button");
+  subtractButton.type = "button";
+  subtractButton.className = "btn bg-success text-white";
+  subtractButton.textContent = "-";
+  
+  const divElement = document.createElement("div");
+  divElement.appendChild(addButton);
+  divElement.appendChild(inputField);
+  divElement.appendChild(subtractButton);
+  
+  // Add the div element to the desired location in the document
+  // For example, if you want to add it to the body:
+  document.body.appendChild(divElement);
+   -->

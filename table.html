@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Saved Form Data</title>
+    <style>
+        .item1 {grid-area: header;}
+        .item2 {grid-area: menu;}
+        .item3 {grid-area: footer;}
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                'header header'
+                'menu menu'
+                'footer footer';
+            grid-template-rows: auto;
+            grid-template-columns: 50% 49%;
+            gap: 10px;
+        }
+
+        .grid-container>div {
+            background-color: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 0 5px;
+            font-size: 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 2%;
+        }
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .logo label {
+            margin-left: 10px;
+            font-size: 30px;
+            margin-bottom: 5px;
+            font-weight: bolder;
+        }
+        .nvgt {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: right;
+        }
+        .nvgt button {
+            background: #000000;
+            height: 50px;
+            color: white;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+
+        table {
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 90%;
+            margin: 5%;
+        }
+        th {
+            text-align: center;
+            background-color: #FEDEDE;
+        }
+        tr, td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 5px; 
+            max-width: 100px;
+        }
+        
+        td button {
+            /* border-radius: 50%; */
+            margin: 1%;
+            /* background-color: rgb(120, 120, 238);
+            color: white; */
+        }
+        td button:hover {
+            transform: scale(1.2); 
+        }
+
+
+        .ftr {
+            margin: 0% 5%;
+        }
+        .ftrInf {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: grey;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="item1">
+            <div class="nav">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="logo" /><label>Logoipsum</label>
+                </div>
+                <div class="nvgt">
+                    <a href="/AdminPage.html"><button>Add Product</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="item2">
+            <div id="table-container"></div>
+        </div>
+        <div class="item3">
+            <div class="ftr">
+                <hr />
+                <div class="ftrInf">
+                    <p>Copyright &copy; 2021</p>
+                    <img src="/img/logo.png" width="2%" height="2%">
+                    <p>Privacy policy . Terms & Condition</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script>
+
+
+function displayFormData() {
+  var formData = JSON.parse(localStorage.getItem("formData"));
+
+  var table = document.createElement("table");
+
+  // Create table headers
+  var headers = ["Serial No.", "Name", "Gender", "Price", "Currency", "Quantity", "Image", "Color", "Actions"];
+  var headerRow = document.createElement("tr");
+
+  for (var i = 0; i < headers.length; i++) {
+    var headerCell = document.createElement("th");
+    headerCell.textContent = headers[i];
+    headerRow.appendChild(headerCell);
+  }
+
+  table.appendChild(headerRow);
+
+  // Create table rows with form data
+  for (var j = 0; j < formData.length; j++) {
+    var dataRow = document.createElement("tr");
+
+    // Serial number column
+    var serialCell = document.createElement("td");
+    serialCell.textContent = j + 1;
+    dataRow.appendChild(serialCell);
+
+    // Other form data columns
+    var columns = ["name", "gender", "price", "currency", "quantity", "image", "color"];
+
+    for (var k = 0; k < columns.length; k++) {
+      var dataCell = document.createElement("td");
+      if (columns[k] === "image") {
+        var imageElement = document.createElement("img");
+        imageElement.setAttribute("src", formData[j][columns[k]]);
+        imageElement.setAttribute("width", "100");
+        dataCell.appendChild(imageElement);
+      } else {
+        dataCell.textContent = formData[j][columns[k]];
+      }
+      dataRow.appendChild(dataCell);
+    }
+
+// Actions column
+var actionsCell = document.createElement("td");
+
+var updateButton = document.createElement("button");
+var updateButtonId = "updateButton" + j; // Unique ID for update button
+updateButton.id = updateButtonId;
+updateButton.dataset.index = j; // Set the dataset index for identification
+
+// Create an image element
+var updateButtonImage = document.createElement("img");
+updateButtonImage.src = "img/update.png"; // image source
+updateButtonImage.alt = "Update"; // alt text for the image
+// Append the image element to the update button
+updateButton.appendChild(updateButtonImage);
+// Add styles to the button
+updateButton.style.backgroundColor = "blue";
+updateButton.style.color = "white";
+updateButton.style.height = "32px";
+updateButton.style.width = "33px"
+updateButton.style.borderRadius = "50px";
+// Add event listener to the button
+updateButton.addEventListener("click", handleUpdate);
+
+actionsCell.appendChild(updateButton);
+
+
+
+
+var deleteButton = document.createElement("button");
+var deleteButtonId = "deleteButton" + j; // Unique ID for delete button
+deleteButton.id = deleteButtonId;
+deleteButton.dataset.index = j; // Set the dataset index for identification
+// Create an image element
+var deleteButtonImage = document.createElement("img");
+deleteButtonImage.src = "img/dlt.png"; // image source
+deleteButtonImage.alt = "Delete"; // alt text for the image
+// Append the image element to the delete button
+deleteButton.appendChild(deleteButtonImage);
+// Add styles to the button
+deleteButton.style.backgroundColor = "red";
+deleteButton.style.color = "white";
+deleteButton.style.height = "30px"
+deleteButton.style.weight = "35px"
+deleteButton.style.borderRadius = "50px"
+deleteButton.addEventListener("click", handleDelete);
+
+
+actionsCell.appendChild(deleteButton);
+
+dataRow.appendChild(actionsCell);
+table.appendChild(dataRow);
+
+  // Display the table
+  var tableContainer = document.getElementById("table-container");
+  tableContainer.innerHTML = "";
+  tableContainer.appendChild(table);
+}
+}
+
+  function handleUpdate(event) {
+  var index = parseInt(event.target.getAttribute("index"));
+  var formData = JSON.parse(localStorage.getItem("formData"));
+  var selectedData = formData[index];
+
+
+  // Redirect to the previous page
+  window.history.back();
+  // Populate input fields with existing data
+  var nameInput = document.querySelector('input[type="text"][placeholder="Name"]');
+  var genderSelect = document.querySelector('select[name="gender"]');
+  var priceInput = document.querySelector('input[type="number"][placeholder="Price"]');
+  var currencySelect = document.querySelector('select[name="currency"]');
+  var colorSelect = document.querySelector('select[name="color"]');
+  var quantityInput = document.querySelector('input[type="number"][placeholder="Quantity"]');
+
+  nameInput.value = selectedData.name;
+  genderSelect.value = selectedData.gender;
+  priceInput.value = selectedData.price;
+  currencySelect.value = selectedData.currency;
+  colorSelect.value = selectedData.color;
+  quantityInput.value = selectedData.quantity;
+
+//   Retrieve and display the image
+  var imageDiv = document.getElementById("image-container");
+  var imageElement = document.createElement("img");
+  imageElement.setAttribute("src", selectedData.image);
+  imageElement.setAttribute("alt", "Product Image");
+  imageDiv.innerHTML = "";
+  imageDiv.appendChild(imageElement);
+}
+
+        // Handle delete button click
+        function handleDelete(event) {
+            var index = parseInt(event.target.dataset.index);
+            var formData = JSON.parse(localStorage.getItem("formData"));
+
+            formData.splice(index, 1);
+            localStorage.setItem("formData", JSON.stringify(formData));
+
+            // Display the updated data
+            displayFormData();
+            console.log("Delete button clicked for index:", index);
+        }
+        // Call the displayFormData function initially to show existing data
+        displayFormData();
+    </script> -->
+
+<script>
+    function displayFormData() {
+  var formData = JSON.parse(localStorage.getItem("formData"));
+
+  var table = document.createElement("table");
+
+  // Create table headers
+  var headers = ["Serial No.", "Name", "Gender", "Price", "Currency", "Quantity", "Image", "Color", "Actions"];
+  var headerRow = document.createElement("tr");
+
+  for (var i = 0; i < headers.length; i++) {
+    var headerCell = document.createElement("th");
+    headerCell.textContent = headers[i];
+    headerRow.appendChild(headerCell);
+  }
+
+  table.appendChild(headerRow);
+
+  // Create table rows with form data
+  for (var j = 0; j < formData.length; j++) {
+    var dataRow = document.createElement("tr");
+
+    // Serial number column
+    var serialCell = document.createElement("td");
+    serialCell.textContent = j + 1;
+    dataRow.appendChild(serialCell);
+
+    // Other form data columns
+    var columns = ["name", "gender", "price", "currency", "quantity", "image", "color"];
+
+    for (var k = 0; k < columns.length; k++) {
+      var dataCell = document.createElement("td");
+      if (columns[k] === "image") {
+        var imageElement = document.createElement("img");
+        imageElement.setAttribute("src", formData[j][columns[k]]);
+        imageElement.setAttribute("width", "100");
+        dataCell.appendChild(imageElement);
+      } else {
+        dataCell.textContent = formData[j][columns[k]];
+      }
+      dataRow.appendChild(dataCell);
+    }
+
+    // Actions column
+    var actionsCell = document.createElement("td");
+
+    var updateButton = document.createElement("button");
+    var updateButtonId = "updateButton" + j; // Unique ID for update button
+    updateButton.id = updateButtonId;
+    updateButton.dataset.index = j; // Set the dataset index for identification
+
+    // Create an image element
+    var updateButtonImage = document.createElement("img");
+    updateButtonImage.src = "img/update.png"; // image source
+    updateButtonImage.alt = "Update"; // alt text for the image
+
+    // Append the image element to the update button
+    updateButton.appendChild(updateButtonImage);
+
+    // Add styles to the button
+    updateButton.style.backgroundColor = "blue";
+    updateButton.style.color = "white";
+    updateButton.style.height = "32px";
+    updateButton.style.width = "33px";
+    updateButton.style.borderRadius = "50px";
+
+    // Add event listener to the button
+    updateButton.addEventListener("click", handleUpdate);
+
+    actionsCell.appendChild(updateButton);
+
+    var deleteButton = document.createElement("button");
+    var deleteButtonId = "deleteButton" + j; // Unique ID for delete button
+    deleteButton.id = deleteButtonId;
+    deleteButton.dataset.index = j; // Set the dataset index for identification
+
+    // Create an image element
+    var deleteButtonImage = document.createElement("img");
+    deleteButtonImage.src = "img/dlt.png"; // image source
+    deleteButtonImage.alt = "Delete"; // alt text for the image
+
+    // Append the image element to the delete button
+    deleteButton.appendChild(deleteButtonImage);
+
+    // Add styles to the button
+    deleteButton.style.backgroundColor = "red";
+    deleteButton.style.color = "white";
+    deleteButton.style.height = "30px";
+    deleteButton.style.weight = "35px";
+    deleteButton.style.borderRadius = "50px";
+    deleteButton.addEventListener("click", handleDelete);
+
+    actionsCell.appendChild(deleteButton);
+
+    dataRow.appendChild(actionsCell);
+    table.appendChild(dataRow);
+  }
+
+  // Display the table
+  var tableContainer = document.getElementById("table-container");
+  tableContainer.innerHTML = "";
+  tableContainer.appendChild(table);
+}
+
+function handleUpdate(event) {
+  var index = parseInt(event.target.dataset.index);
+  var formData = JSON.parse(localStorage.getItem("formData"));
+
+  // Check if the index is valid
+  if (index >= 0 && index < formData.length) {
+    var selectedData = formData[index];
+
+    // Open a new window or tab with the updated data displayed
+    var updateWindow = window.open("", "_blank");
+    updateWindow.document.write(JSON.stringify(selectedData));
+    updateWindow.document.close();
+  }
+}
+
+
+
+
+
+function handleDelete(event) {
+  var index = parseInt(event.target.dataset.index); // Use dataset.index instead of getAttribute("index")
+  var formData = JSON.parse(localStorage.getItem("formData"));
+
+  formData.splice(index, 1);
+  localStorage.setItem("formData", JSON.stringify(formData));
+
+  displayFormData();
+}
+
+// Call the displayFormData function initially to show existing form data
+displayFormData();
+
+</script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- // Handle update button click
+function handleUpdate(event) {
+  var index = parseInt(event.target.dataset.index);
+  var formData = JSON.parse(localStorage.getItem("formData"));
+  var selectedData = formData[index];
+
+  // Perform the necessary action for updating the data
+  console.log("Update button clicked for index:", index);
+  console.log("Selected data:", selectedData);
+
+  var updatedField = prompt("Enter the name of the field to update (e.g., name, gender, price):");
+  if (updatedField !== null) {
+    if (selectedData.hasOwnProperty(updatedField)) {
+      var updatedValue = prompt("Enter the updated value for " + updatedField + ":", selectedData[updatedField]);
+      selectedData[updatedField] = updatedValue;
+      localStorage.setItem("formData", JSON.stringify(formData));
+      displayFormData(); // Refresh the table to show the updated data
+    } else {
+      alert("Invalid field name. Please enter a valid field name.");
+    }
+  }
+} -->
