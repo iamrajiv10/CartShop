@@ -1,0 +1,112 @@
+        .section1 {grid-area: header;}
+        .section2 {grid-area: menu;}
+        .section3 {grid-area: right;}
+        .section4 {grid-area: footer;}
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                'header header header'
+                'menu menu right'
+                'footer footer footer';
+            grid-template-rows: auto;
+            grid-template-columns: 25% 25% 49%;
+            gap: 10px;
+        }
+
+        .grid-container>div {
+            background-color: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5px;
+            font-size: 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 2%;
+        }
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .logo label {
+            margin-left: 10px;
+            font-size: 30px;
+            margin-bottom: 5px;
+            font-weight: bolder;
+        }
+
+        .body h1 {
+            text-align: left;
+            font-size: 60px;
+            padding-left: 5%;
+        }
+        .check {
+            display: inline-flexbox;
+            margin-left: 2%;
+        }
+
+        .check a {
+            text-decoration: none;
+            font-size: 20px;
+            text-align: left;
+        }
+        .click {
+            display: flex;
+            margin: 20px;
+            border: 1px solid black;
+            justify-content: space-between;
+            text-align: left;
+            align-items: left;
+            border: 1px solid blue;
+            border-radius: 5px;
+        }
+        .click img{
+            justify-content: left;
+            align-items: left;
+            text-align: left;
+            padding-left: 2%;
+            margin-top: 1%;
+        }
+        .click label {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-left: 2%;
+            margin-top: 1%;
+            color: black;
+        }
+        .lbl {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            margin: 10px;
+        }
+        .lbl img  {
+            margin-right: 10px;
+        }
+        .rdo {
+            margin-top: 2%;
+            margin-right: 2%;
+        }
+
+        .design img {
+            width: 60%;
+            height: auto;
+        }
+
+        .footer {
+            margin: 0% 5%;
+        }
+
+        .footerInfo {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: grey;
+        }

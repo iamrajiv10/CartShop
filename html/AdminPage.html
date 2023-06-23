@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="/Style/AdminPage.css">
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="section1">
+            <div class="nav">
+                <div class="logo">
+                    <img src="/img/logo.png" alt="logo" /><label>Logoipsum</label>
+                </div>
+                <div class="nvgt">
+                    <a href="/html/LoginPage.html"><button>LoginPage</button></a>
+                    <a href="/html/table.html"><button>Go to Product Listing Page</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="section2">
+            <h1>Add Product</h1>
+            <form id="adminForm" onsubmit="return validateForm()">
+
+                <input type="text" id="name" name="name" placeholder="Name">
+
+                <select id="gender" name="gender">
+                    <option value="">Choose a gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="unisex">Unisex</option>
+                </select>
+
+                <input type="number" id="price" name="price" placeholder="Price">
+
+                <select id="currency" name="currency">
+                    <option value="">Currency</option>
+                    <option>&#x00024</option>
+                    <option>&#x20B9</option>
+                </select>
+
+                <select id="color" name="color">
+                    <option value="">Choose a color</option>
+                    <option value="white">White</option>
+                    <option value="balck">Black</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="pink">Pink</option>
+                    <option value="maroon">Maroon</option>
+                </select>
+
+                <input type="number" id="quantity" name="quantity" placeholder="Quantity">
+
+                <input type="file" accept="image/*" id="forimage" />
+                <br />
+                <div class="formBtn">
+                    <button type="reset">Reset</button>
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+        <div class="section3">
+            <div class="design">
+                <img src="/img/Vector 176.png" alt="design" width="auto">
+            </div>
+        </div>
+        <div class="section4">
+            <div class="footer">
+                <hr />
+                <div class="footerInfo">
+                    <p>Copyright &copy; 2023</p>
+                    <img src="/img/logo.png" width="2%" height="2%">
+                    <p>Privacy policy . Terms & Condition</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/Script/AdminPage.js" ></script>
+
+</html>

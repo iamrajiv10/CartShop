@@ -1,0 +1,191 @@
+
+        .section1 {grid-area: header;}
+        .section2 {grid-area: right;}
+        .section3 {grid-area: main;}
+        .section4 {grid-area: footer;}
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                'header header header'
+                'right right right'
+                'main main main'
+                'footer footer footer';
+            grid-template-rows: auto;
+            grid-template-columns: 33% 33% 33%;
+            gap: 5px;
+        }
+
+        .grid-container>div {
+            background-color: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5px;
+            font-size: 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5%;
+            background-color: rgb(9, 9, 23);
+        }
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 1%;
+        }
+        .logo label {
+            margin-left: 10px;
+            font-size: 30px;
+            margin-bottom: 5px;
+            font-weight: bolder;
+            color: white;
+        }
+
+        .srch {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .srch input {
+            width: 200px;
+            height: 50%;
+            border: none;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .srch button {
+            background: #ffffff;
+            height: 50%;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+            border: none;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .navigate {
+            justify-content: center;
+            text-align: right;
+        }
+        .navigate button {
+            background-color: black;
+            height: 40px;
+            width: 150px;
+        }
+        .click {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+        }
+        .click img {
+            width: 20%;
+        }
+        .click label {
+            color: white;
+        }
+
+        .footer {
+            margin: 0% 5%;
+        }
+
+        .footerInfo {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: grey;
+        }
+
+/* ################################################################################################ */
+
+
+.qtybtnCont {
+  justify-content: center;
+  text-align: center;
+  height: 26px;
+  border: 2px solid #50BEA7;
+  border-radius: 5px;
+}
+
+
+.quantity-select {
+  justify-content: center;
+  text-align: center;
+  width: 30px;
+  height: 17px;
+  padding-left: 5px;
+  font-size: 14px;
+  border: none;
+}
+
+ /* CSS for the container */
+#data-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* CSS for the product div */
+.showprdct {
+    display: flex;
+  margin: 0 30px;
+  padding: 0 30px;
+  text-align: center;
+}
+
+.data-item {
+    display: flex;
+    background-color: rgb(243, 240, 240);
+    margin: 40px;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 300px;
+    border-radius: 10px;
+}
+.data-item img {
+    width: 200px;
+    margin-right: 60px;
+    margin-left: -80px;
+}
+
+.details {
+    justify-content: center;
+    display: block;
+    text-align: left;
+}
+.details h2 {
+    margin-top: 0px;
+    color: #4C4C4C;
+}
+.details h3 {
+    margin-top: 0px;
+    color: red;
+}
+.details p {
+    font-size: 13px;
+}
+.details button {
+    background-color: #50BEA7;
+    color: white;
+    font-weight: bold;
+    border: 3px solid #50bea664;
+    border-radius: 5px;
+}
+
+.details select {
+    color: white;
+    background-color: #50BEA7;
+    width: 50px;
+}
+
+
