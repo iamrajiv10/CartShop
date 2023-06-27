@@ -1,5 +1,4 @@
 
-
  // js code for adding data in the table
  const forms = JSON.parse(localStorage.getItem("products") || "[]");
  const formDataEl = document.getElementById("formData");
@@ -47,8 +46,6 @@
      // deleteBtn.textContent = "Delete";
      deleteBtn.addEventListener("click", () => deleteRow(index, row));
      actionCell.appendChild(deleteBtn);
-
-     
  });
 
  function editRow(index, row) {
@@ -56,8 +53,8 @@
      localStorage.setItem('edit_table', JSON.stringify(forms[index]));
      localStorage.setItem('edit_id', index);
      window.location.href="AdminPage.html";
+     console.log(forms[index]);
  }
-
 
 
 function deleteRow(index, row) {
@@ -70,10 +67,16 @@ function deleteRow(index, row) {
  forms.splice(index, 1);
  localStorage.setItem("products", JSON.stringify(forms));
 
- // remove the item from cart data
- const cart = JSON.parse(localStorage.getItem("cart") || "{}");
- delete cart[name];
- localStorage.setItem("cart", JSON.stringify(cart));
+ // remove the item from cartItems
+ let cartItems = JSON.parse(localStorage.getItem("cartItems") || "{}");
+ for (let j=0; j<cartItems.length; j++){
+    if (cartItems[j].name == name){
+        cartItems.splice(j,1);
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+ }
+
+//  localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
  // update the serial numbers in the first column of each row
  const rows = formDataEl.rows;
@@ -82,6 +85,7 @@ function deleteRow(index, row) {
      cell.textContent = i;
  }
 }
+
 
  const admin = document.getElementById('admin');
  // added click event listeners to the buttons to move to Admin Page

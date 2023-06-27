@@ -25,42 +25,71 @@
         <div class="section2">
             <h1>Add Product</h1>
             <form id="adminForm" onsubmit="return validateForm()">
-
-                <input type="text" id="name" name="name" placeholder="Name">
-
-                <select id="gender" name="gender">
-                    <option value="">Choose a gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="unisex">Unisex</option>
-                </select>
-
-                <input type="number" id="price" name="price" placeholder="Price">
-
-                <select id="currency" name="currency">
-                    <option value="">Currency</option>
-                    <option>&#x00024</option>
-                    <option>&#x20B9</option>
-                </select>
-
-                <select id="color" name="color">
-                    <option value="">Choose a color</option>
-                    <option value="white">White</option>
-                    <option value="balck">Black</option>
-                    <option value="blue">Blue</option>
-                    <option value="green">Green</option>
-                    <option value="pink">Pink</option>
-                    <option value="maroon">Maroon</option>
-                </select>
-
-                <input type="number" id="quantity" name="quantity" placeholder="Quantity">
-
-                <input type="file" accept="image/*" id="forimage" />
-                <br />
+                <div style="display: flex;">
+                    <div class="formInp">
+                        <label>Product Name <span>*</span></label><br />
+                        <input type="text" id="name" name="name" placeholder="Name">
+                        <span id="nameError" class="error"></span>
+                    </div>
+                    <div class="formInp">
+                        <label>Gender <span>*</span></label><br />
+                        <select id="gender" name="gender">
+                            <option value="">Choose a gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="unisex">Unisex</option>
+                        </select>
+                        <span id="genderError" class="error"></span>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div class="formInp">
+                        <label>Price <span>*</span></label><br />
+                        <input type="number" id="price" name="price" placeholder="Price">
+                        <span id="priceError" class="error"></span>
+                    </div>
+                    <div class="formInp">
+                        <label>currency <span>*</span></label><br />
+                        <select id="currency" name="currency">
+                            <option value="">Currency</option>
+                            <option>&#x00024</option>
+                            <option>&#x20B9</option>
+                        </select>
+                        <span id="currencyError" class="error"></span>
+                    </div>
+                </div>
+                <div style="display: flex;">
+                    <div class="formInp">
+                        <label>Color <span>*</span></label><br />
+                        <select id="color" name="color">
+                            <option value="">Choose a color</option>
+                            <option value="White">White</option>
+                            <option value="Black">Black</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Green">Green</option>
+                            <option value="Pink">Pink</option>
+                            <option value="Maroon">Maroon</option>
+                        </select>
+                        <span id="colorError" class="error"></span>
+                    </div>
+                    <div class="formInp">
+                        <label>Quantity <span>*</span></label><br />
+                        <input type="number" id="quantity" name="quantity" placeholder="Quantity">
+                        <span id="quantityError" class="error"></span>
+                    </div>
+                </div>
+                <label style="font-size: 30px; color: rgb(91, 90, 90);">Upload image</label>
+                <div class="fileInput">
+                    <input type="file" accept="image/*" id="forimage"><input />
+                </div>
+                <div class="formInp">
+                <span id="fileError" class="error"></span>
+            </div>
                 <div class="formBtn">
-                    <button type="reset">Reset</button>
+                    <button type="reset" onclick="location.reload();">Reset</button>
                     <button type="submit">Save</button>
                 </div>
+
             </form>
         </div>
         <div class="section3">
@@ -80,6 +109,10 @@
         </div>
     </div>
 </body>
-<script src="/Script/AdminPage.js" ></script>
+<script src="/Script/AdminPage.js"></script>
 
 </html>
+
+
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+-->

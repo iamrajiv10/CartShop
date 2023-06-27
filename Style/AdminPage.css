@@ -72,40 +72,64 @@
         }
 
         form {
-            background-color: rgb(255, 255, 255);
             font-size: 40px;
             text-align: left;
+            justify-content: space-between;
         }
-
+        .formInp{
+            width: 50%;
+            margin: 2px;
+        }
+        .formInp span {
+            color: red;
+            font-size: 15px;
+        }
+        .formInp label {
+            font-size: 20px;
+        }
         form input {
-            width: 40%;
+            width: 95%;
             height: 50px;
             margin: 3%;
             border: none;
             border-bottom: 2px solid black;
             outline: none;
         }
-
         form select {
-            width: 40%;
+            width: 95%;
             height: 50px;
             margin: 3%;
             border: none;
             border-bottom: 2px solid black;
+            outline: none;
         }
-
         form label {
             font-size: 30px;
             margin-left: 20px;
             margin-bottom: 0px;
         }
-
         form input[type=file] {
-            width: 40%;
-            background-color: aqua;
+            width: 100%;
+            border: none;
+            border-bottom: none;
             outline: none;
+            margin: 0;
+            opacity: 0.1;
         }
-
+        .fileInput {
+            margin-left: 10px;
+            background-color: #85BFF4;
+            width: 47%;
+            height: 80px;
+            background-image: url(/img/uploadImg.png);
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        /* .form span {
+            color: red;
+            font-size: 15px;
+            margin: 0px;
+        } */
         form button {
             margin: 5px;
             justify-content: center;
@@ -114,14 +138,13 @@
             width: 100px;
             height: 30px;
         }
-
         .formBtn {
             display: flex;
             justify-content: right;
             align-items: right;
             text-align: right;
         }
-
+        
         .design {
             max-width: 90%;
         }

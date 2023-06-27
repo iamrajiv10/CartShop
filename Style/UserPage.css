@@ -116,22 +116,21 @@
   border-radius: 5px;
 }
 
-
 .quantity-select {
-  justify-content: center;
   text-align: center;
   width: 30px;
   height: 17px;
   padding-left: 5px;
   font-size: 14px;
   border: none;
+  outline: none;
 }
 
  /* CSS for the container */
 #data-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: start;
 }
 
 /* CSS for the product div */
@@ -145,7 +144,7 @@
 .data-item {
     display: flex;
     background-color: rgb(243, 240, 240);
-    margin: 40px;
+    margin: 50px;
     justify-content: center;
     align-items: center;
     width: 350px;
@@ -168,11 +167,16 @@
     color: #4C4C4C;
 }
 .details h3 {
-    margin-top: 0px;
+    margin: 5px;
     color: red;
+}
+.details h6 {
+    margin: 5px;
+    color: #272626;
 }
 .details p {
     font-size: 13px;
+    margin: 2px;
 }
 .details button {
     background-color: #50BEA7;

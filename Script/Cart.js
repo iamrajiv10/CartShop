@@ -1,46 +1,9 @@
-function displayCartData() {
-  var container = document.getElementById("data-container");
-  container.innerHTML = ""; // Clear the container
-}
-
-
-let forms = JSON.parse(localStorage.getItem("products") || "[]");
-let cartItems = JSON.parse(localStorage.getItem("cartItems"));
-
-function clearCart() {
-
-    for (var k=0; k<cartItems.length; k++){
-        for (var j=0; j<forms.length; j++){
-            if (cartItems[k].id === forms[j].id){
-                // console.log(cartItems[k].quantity);
-                var newQty = forms[j].quantity - cartItems[k].quantity ;
-                console.log(newQty)
-
-                // update the quantity value in forms array
-                forms[j].quantity = newQty;
-            }
-        }
-    }
-    
-    //update the forms data in localstorage
-    localStorage.setItem("products", JSON.stringify(forms));
-
-  // Clear the cart items in localStorage
-  localStorage.removeItem("cartItems");
-
-  // Reload the page
-  location.reload();
-}
-
-
-// Add event listener to the clear cart button
-var clearCartButton = document.getElementById("clearCartButton");
-clearCartButton.addEventListener("click", clearCart);
 
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 function displayCartData() {
     var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    var formData = JSON.parse(localStorage.getItem("products"));
     var tableBody = document.querySelector("tbody");
   
     // Clear existing table rows
@@ -115,17 +78,20 @@ function displayCartData() {
   // Function to increment the quantity
   function incrementQuantity(index) {
 
-    var formData = JSON.parse(localStorage.getItem("products"));
-
+  var formData = JSON.parse(localStorage.getItem("products"));
   var cartItems = JSON.parse(localStorage.getItem("cartItems"));
 
   for (var k=0; k<formData.length; k++){
     if(cartItems[index].id == formData[k].id){
     if(cartItems[index].quantity < formData[k].quantity){
   cartItems[index].quantity++;
+  cartItems[index].cartQty++;
+    }else {
+    alert("Sorry! no more products are available right now .")
     }
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  location.reload(); // Reload the page
+  displayCartData();
+  displayTotalSum();
     }
   }
 }
@@ -135,12 +101,15 @@ function displayCartData() {
     var cartItems = JSON.parse(localStorage.getItem("cartItems"));
     if (cartItems[index].quantity > 1) {
       cartItems[index].quantity--;
+      cartItems[index].cartQty--;
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
     } else {
+      alert("The Product has been removed from your cart")
       cartItems.splice(index, 1); // Remove item if quantity is 1
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }
-    location.reload(); // Reload the page
+    displayCartData();
+    displayTotalSum();
   }
   
   
@@ -151,19 +120,20 @@ function displayCartData() {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     location.reload();
     displayCartData();
-  }
+    displayTotalSum();
+  } 
   
-  // Call the displayCartData function initially to show existing cart data
+// Call the displayCartData function initially to show existing cart data
   displayCartData();
-  
-  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  displayTotalSum();
 
-  // Function to calculate the subtotal and total sum
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+// Function to calculate the subtotal and total sum
 function calculateTotalSum() {
   var cartItems = JSON.parse(localStorage.getItem("cartItems"));
   var subtotalSum = 0;
   var totalSum = 0;
-
   for (var j = 0; j < cartItems.length; j++) {
     if (cartItems[j].currency === "₹") {
       var totalValue = cartItems[j].price * cartItems[j].quantity;
@@ -173,7 +143,6 @@ function calculateTotalSum() {
     subtotalSum += totalValue;
     totalSum += totalValue;
   }
-
   return {
     subtotal: subtotalSum,
     total: totalSum
@@ -189,20 +158,37 @@ function displayTotalSum() {
   totalCell.style.color = "green"
 
   if (subtotalCell) {
-    subtotalCell.textContent ="₹" + " " + totalData.subtotal;
-  }
+    subtotalCell.textContent ="₹" + " " + totalData.subtotal;}
   if (totalCell) {
-    totalCell.textContent ="₹"+ " " +totalData.total;
-  }
+    totalCell.textContent ="₹"+ " " +totalData.total;}
 }
-
 // Call the displayCartData function initially to show existing cart data
 displayCartData();
-
-// Call the displayTotalSum function to show the total sum in the separate table
 displayTotalSum();
 
-  
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+
+function ClearCart(){
+  var formData = JSON.parse(localStorage.getItem("products"));
+  var cartItems = JSON.parse(localStorage.getItem("cartItems"));
+  for (j=0; j<cartItems.length; j++){
+    for(k=0; k<formData.length; k++){
+      if (cartItems[j].id == formData[k].id){
+        formData[k].quantity = formData[k].quantity - cartItems[j].quantity;
+        console.log(formData[k].quantity);
+        localStorage.setItem("products", JSON.stringify(formData));
+      }
+      if (formData[k].quantity < 1){
+        formData.splice(k, 1); // Remove the item from the array 
+        localStorage.setItem("products", JSON.stringify(formData));
+      }
+    }
+  }
+    localStorage.removeItem("cartItems");
+    console.log("lola");
+  alert("Thanks for shoping with us.")
+  window.location.reload();
+  displayCartData();
+}
